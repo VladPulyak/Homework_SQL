@@ -17,6 +17,12 @@ end;
 
 go
 
+alter table UserBooks
+add ToCharge float(2) not null default 0
+
+go
+
+
 create or alter procedure GiveBookToUser @userEmail nvarchar(20),
 								@authorFirstName nvarchar(20),
 								@authorLastName nvarchar(20),
@@ -40,10 +46,6 @@ insert into UserBooks values
 0
 )
 end;
-go
-
-alter table UserBooks
-add ToCharge float(2) not null default 0
 go
 
 create or alter function ChargeUser(@dateOfCreating date, @daysCount int = 60) returns money
