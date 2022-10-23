@@ -12,6 +12,8 @@ go
 
 create or alter procedure DeleteUsersByExpiredDate as
 begin
+declare @userFullNameWithBook nvarchar(50)
+set @userFullNameWithBook = (select UserFullName from UsersInfo where (select ExpiredDate from Users where UsersInfo.Id = Users.Id)<GETDATE() and BookName is not null)
 delete from Users where Id = (select Id from UsersInfo where ExpiredDate < GETDATE() and BookName is null)
 end;
 
